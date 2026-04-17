@@ -34,3 +34,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+#Ignore windsurf AI rules
+.windsurfrules
+
+# IDE and AI tools
+.qodo/
+.windsurf/
+
+.design/resources
+.design/mockups
