@@ -1,0 +1,49 @@
+
+  
+  .pixel-rain-reveal {
+    /* 1. Define the base 10-step transparency sequence */
+    --s0: #000;
+    --s1: rgba(0,0,0,0.9); --s2: rgba(0,0,0,0.8); --s3: rgba(0,0,0,0.7);
+    --s4: rgba(0,0,0,0.6); --s5: rgba(0,0,0,0.5); --s6: rgba(0,0,0,0.4);
+    --s7: rgba(0,0,0,0.3); --s8: rgba(0,0,0,0.2); --s9: rgba(0,0,0,0.1);
+
+    /* 2. Define the vertical graduate (The "Shutter") */
+    --vertical-grad: repeating-linear-gradient(to bottom, 
+      var(--s0) 0 1rem, var(--s1) 1rem 2rem, var(--s2) 2rem 3rem, 
+      var(--s3) 3rem 4rem, var(--s4) 4rem 5rem, var(--s5) 5rem 6rem, 
+      var(--s6) 6rem 7rem, var(--s7) 7rem 8rem, var(--s8) 8rem 9rem, 
+      var(--s9) 9rem 10rem
+    );
+
+    /* 3. Pre-make columns with shuffled vertical start positions */
+    /* Each is 1rem wide with a 9rem gap, repeating every 10rem */
+    --c1: repeating-linear-gradient(to bottom, var(--s4) 0 1rem, var(--s5) 1rem 2rem, var(--s6) 2rem 3rem, var(--s7) 3rem 4rem, var(--s8) 4rem 5rem, var(--s9) 5rem 6rem, var(--s0) 6rem 7rem, var(--s1) 7rem 8rem, var(--s2) 8rem 9rem, var(--s3) 9rem 10rem);
+    --c2: repeating-linear-gradient(to bottom, var(--s7) 0 1rem, var(--s8) 1rem 2rem, var(--s9) 2rem 3rem, var(--s0) 3rem 4rem, var(--s1) 4rem 5rem, var(--s2) 5rem 6rem, var(--s3) 6rem 7rem, var(--s4) 7rem 8rem, var(--s5) 8rem 9rem, var(--s6) 9rem 10rem);
+    --c3: repeating-linear-gradient(to bottom, var(--s1) 0 1rem, var(--s2) 1rem 2rem, var(--s3) 2rem 3rem, var(--s4) 3rem 4rem, var(--s5) 4rem 5rem, var(--s6) 5rem 6rem, var(--s7) 6rem 7rem, var(--s8) 7rem 8rem, var(--s9) 8rem 9rem, var(--s0) 9rem 10rem);
+    /* (Repeat this logic for as many unique column variations as desired) */
+
+    /* 4. Map the columns horizontally in a preset 'random' order */
+    mask-image: var(--c1), var(--c2), var(--c3), var(--c1), var(--c2);
+    -webkit-mask-image: var(--c1), var(--c2), var(--c3), var(--c1), var(--c2);
+    
+    mask-size: 1rem 10rem;
+    -webkit-mask-size: 1rem 10rem;
+
+    /* Manually set the X position for each 1rem strip to create the 'shuffle' */
+    mask-position-x: 0rem, 1rem, 2rem, 3rem, 4rem;
+    -webkit-mask-position-x: 0rem, 1rem, 2rem, 3rem, 4rem;
+    mask-position-y: 3rem, 1rem, 4rem, 2rem, 0rem;
+    -webkit-mask-position-y: 3rem, 1rem, 4rem, 2rem, 0rem;
+    
+    mask-repeat: repeat-x;
+
+    /* 5. Reveal Animation */
+    animation: reveal-shuffled-grid 3s steps(30) both;
+    animation-timeline: view();
+    animation-range: entry 10% contain 50%;
+  }
+
+  @keyframes reveal-shuffled-grid {
+    from { mask-position-y: -20rem; }
+    to { mask-position-y: 0rem; }
+  }

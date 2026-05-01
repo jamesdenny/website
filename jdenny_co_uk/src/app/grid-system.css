@@ -1,0 +1,188 @@
+@layer base {
+  /* 
+    Grid System with Named Lines
+    Mobile/Tablet: 12 Columns
+    Desktop: 24 Columns
+  */
+  .grid-cols-bleed-24 {
+    display: grid;
+    /* min-height: 100vh; */
+    margin: 0;
+    /* width: 100%; */
+    grid-auto-flow: row;
+
+    column-gap: 4rem;
+  
+
+    grid-template-rows: 
+      [header-start]
+      auto
+      [header-end main-start]
+      1fr
+      [main-end footer-start]
+      auto
+      [footer-end];
+
+    /* Mobile: 12 Columns with named fractional lines */
+    grid-template-columns:
+      [full-start] minmax(0, 1fr)
+      /*1*/ [content-start half1-start quarter-1-start third-1-start] minmax(0, 2rem)
+      /*2*/ minmax(0, 2rem)
+      /*3*/ minmax(0, 2rem) [quarter-1-end quarter-2-start]
+      /*4*/ minmax(0, 2rem) [third-1-end third-2-start]
+      /*5*/ minmax(0, 2rem)
+      /*6*/ minmax(0, 2rem) [half-1-end half-2-start quarter-2-end quarter-3-start]
+      /*7*/ minmax(0, 2rem)
+      /*8*/ minmax(0, 2rem) [third-2-end third-3-start]
+      /*9*/ minmax(0, 2rem) [quarter-3-end quarter-4-start]
+      /*10*/ minmax(0, 2rem)
+      /*11*/ minmax(0, 2rem)
+      /*12*/ minmax(0, 2rem) [content-end half-2-end quarter-4-end thrird-3-end]
+      minmax(0, 1fr) [full-end];
+
+    header {
+      grid-column: full-start / full-end;
+    }
+    main {
+      grid-column: full-start / full-end;
+    }
+    footer {
+      grid-column: full-start / full-end;
+    }
+
+    header > *, main > *, footer > * {
+      /* default to content width */
+      grid-column: content-start / content-end;
+    }
+
+    /* Tablet/Desktop: 24 Columns (md: 768px+, lg: 1024px+) */
+    /* @media (min-width: 768px) { */
+      grid-template-columns:
+      [full-start] 
+      /* left bleed */ minmax(0, 1fr) [content-start half-1-start quarter-1-start third-1-start]
+      /*1*/ minmax(0, 2rem)
+      /*2*/ minmax(0, 2rem)
+      /*3*/ minmax(0, 2rem) 
+      /*4*/ minmax(0, 2rem) 
+      /*5*/ minmax(0, 2rem)
+      /*6*/ minmax(0, 2rem) [quarter-1-end quarter-2-start]
+      /*7*/ minmax(0, 2rem)
+      /*8*/ minmax(0, 2rem) [third-1-end third-2-start]
+      /*9*/ minmax(0, 2rem)
+      /*10*/ minmax(0, 2rem) 
+      /*11*/ minmax(0, 2rem)
+      /*12*/ minmax(0, 2rem) [half-1-end half-2-start quarter-2-end quarter-3-start]
+      /*13*/ minmax(0, 2rem)
+      /*14*/ minmax(0, 2rem)
+      /*15*/ minmax(0, 2rem)
+      /*16*/ minmax(0, 2rem) [third-2-end third-3-start]
+      /*17*/ minmax(0, 2rem)
+      /*18*/ minmax(0, 2rem) [quarter-3-end quarter-4-start]
+      /*19*/ minmax(0, 2rem)
+      /*20*/ minmax(0, 2rem)
+      /*21*/ minmax(0, 2rem)
+      /*22*/ minmax(0, 2rem) 
+      /*23*/ minmax(0, 2rem) 
+      /*24*/ minmax(0, 2rem) [content-end half-2-end quarter-4-end thrird-3-end]
+      /* right bleed */ minmax(0, 1fr) [full-end];
+    /* } */
+
+    /* Desktop: 24 Columns (lg: 1024px+) */
+    /* @media (min-width: 1024px) {
+      grid-template-columns:
+        [full-start] minmax(0, 1fr)
+        [content-start quarter-1-start] repeat(6, minmax(0, 2rem)) [quarter-1-end ]
+        repeat(2, minmax(0, 2rem)) [third-1-start]
+        repeat(4, minmax(0, 2rem)) [third-1-end half-start quarter-2-start]
+        repeat(6, minmax(0, 2rem)) [half-end third-2-start quarter-2-end]
+        repeat(4, minmax(0, 2rem)) [third-2-end]
+        repeat(2, minmax(0, 2rem)) [quarter-3-start]
+        repeat(6, minmax(0, 2rem)) [quarter-3-end content-end]
+        minmax(0, 1fr) [full-end];
+    } */
+  }
+
+  .subgrid {
+    @apply grid grid-cols-subgrid grid-flow-row;
+  }
+
+  .prose[class*="span-"],
+  .prose[class*="from-"],
+  .prose[class*="to-"],
+  .prose[class*="area-"],
+  .prose[class*="col-"] {
+    @apply max-w-none! sm:max-w-none! md:max-w-none! lg:max-w-none!;
+  }
+
+}
+
+
+  @utility col-content {
+    grid-column: content-start / content-end;
+  }
+  @utility col-full {
+    grid-column: full-start / full-end;
+  }
+  @utility area-content {
+    grid-area: content;
+  }
+  @utility area-full {
+    grid-area: full;
+  }
+
+  /* Fractional spans */
+  /* --- SPAN: Pure Fractional Widths --- */
+  @utility span-1of2 { grid-column: span 12; }
+  @utility span-1of3 { grid-column: span 8; }
+  @utility span-2of3 { grid-column: span 16; }
+  @utility span-1of4 { grid-column: span 6; }
+  @utility span-2of4 { grid-column: span 12; }
+  @utility span-3of4 { grid-column: span 18; }
+  @utility span-end { grid-column: auto / -1; }
+  @utility span-fill { grid-column: auto / -1; }
+  @utility span-content { grid-column: span 24; }
+  @utility span-bleed { grid-column: span 26; }
+
+  /* --- FROM: Start Anchors --- */
+  @utility from-end { grid-column-start: 1; } /* Local Start */
+  @utility from-fill { grid-column-start: 1; } /* Local Start */
+  @utility from-content { grid-column-start: content-start; }
+  @utility from-bleed { grid-column-start: full-start; }
+  @utility from-1of2 { grid-column-start: half-1-start; }
+  @utility from-2of2 { grid-column-start: half-2-start; }
+  @utility from-1of3 { grid-column-start: third-1-start; }
+  @utility from-2of3 { grid-column-start: third-2-start; }
+  @utility from-3of3 { grid-column-start: third-3-start; }
+  @utility from-1of4 { grid-column-start: quarter-1-start; }
+  @utility from-2of4 { grid-column-start: quarter-2-start; }
+  @utility from-3of4 { grid-column-start: quarter-3-start; }
+  @utility from-4of4 { grid-column-start: quarter-4-start; }
+
+  /* --- TO: End Anchors --- */
+  @utility to-end { grid-column-end: -1; } /* Local End */
+  @utility to-fill { grid-column-end: -1; } /* Local End */
+  @utility to-content { grid-column-end: content-end; }
+  @utility to-bleed { grid-column-end: full-end; }
+  @utility to-1of2 { grid-column-end: half-1-end; }
+  @utility to-2of2 { grid-column-end: half-2-end; }
+  @utility to-1of3 { grid-column-end: third-1-end; }
+  @utility to-2of3 { grid-column-end: third-2-end; }
+  @utility to-3of3 { grid-column-end: third-3-end; }
+  @utility to-1of4 { grid-column-end: quarter-1-end; }
+  @utility to-2of4 { grid-column-end: quarter-2-end; }
+  @utility to-3of4 { grid-column-end: quarter-3-end; }
+  @utility to-4of4 { grid-column-end: quarter-4-end; }
+
+  /* --- Placements --- */
+  @utility col-1of2 { grid-column: half-1-start / half-1-end; }
+  @utility col-2of2 { grid-column: half-2-start / half-2-end; }
+  @utility col-1of3 { grid-column: third-1-start / third-1-end; }
+  @utility col-2of3 { grid-column: third-2-start / third-2-end; }
+  @utility col-3of3 { grid-column: third-3-start / third-3-end; }
+  @utility col-1of4 { grid-column: quarter-1-start / quarter-1-end; }
+  @utility col-2of4 { grid-column: quarter-2-start / quarter-2-end; }
+  @utility col-3of4 { grid-column: quarter-3-start / quarter-3-end; }
+  @utility col-4of4 { grid-column: quarter-4-start / quarter-4-end; }
+  @utility col-content { grid-column: content-start / content-end; }
+  @utility col-bleed { grid-column: full-start / full-end; }
+

@@ -30,7 +30,7 @@ A modern, responsive professional portfolio website for James Denny showcasing 1
 ### Styling & Design
 - **CSS Framework**: Tailwind CSS with custom 24-column grid system
 - **Color Palette**: 
-  - Primary Teal: #2C96AD
+  - Primary Teal: #1a91a8
   - Slate Grey: #F4F7F6
   - Charcoal: #1A1A1B
 - **Typography**: Sans-serif headers (Inter/Montserrat) + handwritten branding font

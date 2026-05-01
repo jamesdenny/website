@@ -11,7 +11,7 @@ The foundation of the design is a responsive CSS grid system that adapts across 
 
 ### Color Palette
 ```css
---primary-teal: #2C96AD;
+--primary-teal: #1a91a8;
 --slate-grey: #F4F7F6;
 --charcoal: #1A1A1B;
 --white: #FFFFFF;
